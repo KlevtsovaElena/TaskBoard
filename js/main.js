@@ -1,5 +1,4 @@
 
-    localStorage.clear();
     //массив адресов обоев
     let wallpaper = [
         {   "title" : "popular",
