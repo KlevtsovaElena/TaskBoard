@@ -12,36 +12,17 @@
    
     </div>
    
-    <div id="changeBackground">
-        <div id="close-wallpapers" onclick="wallpapersDelete()">
+    <div id="changeBackground" class="">
+        <div id="close-wallpapers" onclick="toggleWallpapaers()">
             &#10006;
         </div>
         <div id="wallpapers"></div>
     </div>
         
     
-
-    
-    
-    
-<!--
-        <div >
-        <div>
-            <input id="card-title" type="text">
-        </div>
-        <div>
-            <textarea id="card-description"></textarea>
-        </div>
-        <div>
-            <button onclick="clearLocalStorage()">Создать</button>
-        </div>
-    </div>
--->
-    
-    
     <template id="tmpl-wallpapers">
 
-            <div id="lot" class="lot" style="background-image: url('${image}')" onclick="boardChangeBackground(${board_number}, ${wallpaper_number}, ${image_number})">
+            <div id="lot" class="lot" style="background-image: url('${image}')" attr-image="${image}" onclick="boardChangeBackground()">
 
             </div>
 
@@ -57,24 +38,20 @@
                 <div>
                     <input type="text" value="${board_header}" oninput="boardRename(${board_number})">
                 </div>
+
                 <div>
-                    <button class="btn" onclick="columnAdd(${board_number})">
-                        Добавить колонку
-                    </button>
+                    <button class="btn" onclick="toggleWallpapaers()">Изменить фон</button>
                 </div>
-                <div>
-                    <button class="btn" onclick="showWallpapaers(${board_number})">Изменить фон</button>
-                </div>
-<!--                <div>
-                    <input type="text" value="${board_background}" onchange="boardChangeBackground(${board_number})">
-                </div>
--->
             </div>
             <div class="board-content ">
                 <div class="flex-box">
                     ${board_content}
                 </div>
-
+                <div>
+                    <button class="btn" onclick="columnAdd(${board_number})">
+                        Добавить колонку
+                    </button>
+                </div>
             </div>
         </div>
     </template>
@@ -92,19 +69,22 @@
             <div class="column-content">
                 ${column_content}
             </div>
-            <div id="formCardAdd_${board_number}_${column_number}" class="d-none">
-                <div><input id="card-title_${board_number}_${column_number}" type="text" placeholder="Название задачи"></div>
-                <div><textarea id="card-description_${board_number}_${column_number}"  placeholder="Описание задачи"></textarea></div>
-               <div><button onclick="cardAdd(${board_number}, ${column_number})" >Сохранить</button></div>
+
+            <div class="formCardAdd d-none">
+                <div><input class="card-title" type="text" placeholder="Название задачи"></div>
+                <div><textarea class="card-description"  placeholder="Описание задачи"></textarea></div>
+                <div><input class="card-time" type="datetime-local"></div>
+                <div><button onclick="cardAdd(${board_number}, ${column_number})" >Сохранить</button></div>
             </div>
             
-                <div>
-                    <div class="ghost btn-addCard" onclick="showAddCardForm(${board_number}, ${column_number})">
+             <div>
+                    <div class="ghost btn-addCard" onclick="showAddCardForm()">
                         + Добавить задачу
                     </div>
              </div>
            
         </div>
+
     </template>
     
     <template id="tmpl-card">
@@ -115,6 +95,7 @@
             <div class="card-content ghost">
                 ${card_content}
             </div>
+            <div title="${card_notification}">${card_notification}</div>
             <div class="card-delete" onclick="cardDelete(${board_number}, ${column_number}, ${card_number})">
                 &#10006;
             </div>

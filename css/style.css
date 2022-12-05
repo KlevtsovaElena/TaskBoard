@@ -15,6 +15,10 @@ body {
     top: 0;
     right: -400px;
     overflow: scroll;
+    transition: all 0.4s;
+}
+.wallpapers-activ{
+    right: 0px !important;
 }
 #boards {
     font-family: 'Poppins', sans-serif;
@@ -24,8 +28,6 @@ body {
 .board {
     color: white;
     height: 100vh;
-    overflow: scroll;
-
 }
 
 .board-header {

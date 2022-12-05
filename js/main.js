@@ -1,4 +1,6 @@
 
+    //
+    let currentBoardId = 0;
     //массив адресов обоев
     let wallpaper = [
         {   "title" : "popular",
@@ -126,9 +128,7 @@
                     "columns":[
                         {
                             "title":"Новая колонка",
-                            "cards":[
-
-                            ]
+                            "cards":[]
                         }
                     ]
                 }
@@ -141,6 +141,8 @@
     console.log(data);
  
     renderBoards();
+    renderWallpapers();
+
 
     //функция сохранения
     function save() {
@@ -180,12 +182,13 @@
                 for (let k = 0; k < data['boards'][i]['columns'][j]['cards'].length; k++) {
 
                     //html одной карточки
-                    let cardHtml = tmpl_card.replace('${card_header}',data['boards'][i]['columns'][j]['cards'][k]['title'])
-                                            .replace('${board_number}',i)                        
-                                            .replace('${column_number}',j)
-                                            .replace('${card_number}',k)
-                                            .replace('${card_content}',data['boards'][i]['columns'][j]['cards'][k]['description']);   
-
+                    let cardHtml = tmpl_card.replace('${card_header}', data['boards'][i]['columns'][j]['cards'][k]['title'])
+                                            .replace('${board_number}', i)                        
+                                            .replace('${column_number}', j)
+                                            .replace('${card_number}', k)
+                                            .replace('${card_content}', data['boards'][i]['columns'][j]['cards'][k]['description'])  
+                                            .replace('${card_notification}', data['boards'][i]['columns'][j]['cards'][k]['time'])
+                                            .replace('${card_notification}', (data['boards'][i]['columns'][j]['cards'][k]['time'] != '') ? '&#x2709;' : '');
                     //добавляем готовый текст карточки к картокам КОЛОНКИ
                     columnCards += cardHtml;
 
@@ -198,17 +201,12 @@
                                             .replace('${board_number}',i)
                                             .replace('${board_number}',i)
                                             .replace('${board_number}',i)
-                                            .replace('${board_number}',i)
-                                            .replace('${board_number}',i)
-                                            .replace('${column_number}',j)
-                                            .replace('${column_number}',j)
                                             .replace('${column_number}',j)
                                             .replace('${column_number}',j)
                                             .replace('${column_number}',j)
                                             .replace('${column_number}',j)
                                             .replace('${column_number}',j)
                                             .replace('${column_content}',columnCards);
-
 
                 //добавляем готовый текст КОЛОНКИ к колонкам ДОСКИ
                 boardColumns += columnHtml;
@@ -296,12 +294,12 @@
         
     }
 
-    function showAddCardForm(board_number, column_number){
+    function showAddCardForm(){
         //форму для заполнения названия и описания задачи
 
-        let id_formCardAdd = "formCardAdd_" + board_number + "_" + column_number;
-        
-        document.getElementById(id_formCardAdd).style.display="block";
+        let id_formCardAdd = event.target.closest('.column').querySelector('.formCardAdd');
+     
+        id_formCardAdd.style.display="block";
 
     }
 
@@ -312,14 +310,14 @@
         let card = {};
 
         //получить содержимое текстового поля
-        let id_title = "card-title_" + board_number + "_" + column_number;
-        let id_description = "card-description_" + board_number + "_" + column_number;
-        let title = document.getElementById(id_title).value;
-        let description = document.getElementById(id_description).value;
+        let title = event.target.closest('.formCardAdd').querySelector('input').value;
+        let description = event.target.closest('.formCardAdd').querySelector('textarea').value;
+        let time = event.target.closest('.formCardAdd').querySelector('.card-time').value;
 
         //наполняем карточку полученными данными
         card['title'] = title;
         card['description'] = description;
+        card['time'] = time;
 
         //добавить карточку в модель
         data['boards'][board_number]['columns'][column_number]['cards'].push(card);
@@ -354,58 +352,42 @@
 
     }
 
-    /*
-//получаем название новой задачи и её описание
-    function getCardName(board_number, column_number) {
-        //получить содержимое текстового поля
-      let title = document.getElementById("card-title").value;
-      let description = document.getElementById("card-description").value;
-
-        //наполняем карточку полученными данными
-        card['title'] = title;
-        card['description'] = description;
-        return title_card = event.target.value;
-    }
-    function getCardDescription() {
-        return description_card = event.target.value;
-    }
-*/
-
-//отрисовываем картинки для выбора фона доски 
-    function showWallpapaers(board_number){
+    function renderWallpapers(){
          //находим контейнер для обоев  
-        let wallpapersContainer = document.getElementById('wallpapers');
-        //находим шаблон для обоев
-        let templateWallpapers = document.getElementById('tmpl-wallpapers').innerHTML;
-        //показать блок с 
-        document.getElementById('changeBackground').style.right = "0";
-        //для каждой категории картинок
-        for (let i = 0; i<wallpaper.length; i++){
-            //выводим картинки этой категории
-            for (let j = 0; j<wallpaper[i]['image'].length; j++){
-                wallpapersContainer.innerHTML += templateWallpapers .replace('${image}', wallpaper[i]['image'][j])
-                                                                    .replace('${image}', wallpaper[i]['image'][j])
-                                                                    .replace('${board_number}', board_number)
-                                                                    .replace('${wallpaper_number}', i)
-                                                                    .replace('${image_number}', j);               
-            }
-        }
+         let wallpapersContainer = document.getElementById('wallpapers');
 
-    
+         //находим шаблон для обоев
+         let templateWallpapers = document.getElementById('tmpl-wallpapers').innerHTML;
+
+          //для каждой категории картинок
+         for (let i = 0; i<wallpaper.length; i++){
+
+             //выводим картинки этой категории
+             for (let j = 0; j<wallpaper[i]['image'].length; j++){
+
+                 wallpapersContainer.innerHTML += templateWallpapers .replace('${image}', wallpaper[i]['image'][j])
+                                                                     .replace('${image}', wallpaper[i]['image'][j]);
+                                                                                  
+             }
+         }
     }
-//закрываем меню с обоями
-function wallpapersDelete(){
-    let wallpapersContainer = document.getElementById('wallpapers');
-    wallpapersContainer.innerHTML = "";
-    document.getElementById('changeBackground').style.right = "-400px";
-}
+
+    //отрисовываем картинки для выбора фона доски 
+    function toggleWallpapaers(){
+
+        //показать блок с обоями
+        document.getElementById('changeBackground').classList.toggle('wallpapers-activ');
+   
+    }
+
     //функция для замены обоев
-    function boardChangeBackground(board_number, wallpaper_number, image_number) {
+    function boardChangeBackground() {
 
         //получаем ссылку на фон
-        let background = wallpaper[wallpaper_number]['image'][image_number];
+        let background = event.target.getAttribute('attr-image');
+    
         //обновляем фон в модели
-        data['boards'][board_number]['background'] = background;
+        data['boards'][currentBoardId]['background'] = background;
 
         //сохраняем
         save();
