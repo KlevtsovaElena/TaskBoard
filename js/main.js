@@ -1,6 +1,5 @@
 
-    //
-    let currentBoardId = 0;
+   
     //массив адресов обоев
     let wallpaper = [
         {   "title" : "popular",
@@ -112,6 +111,8 @@
         },
       ]
 
+    //адрес юзера в телеграмм
+    let chat_id = 1752911328;
 
     //создаем модель таскборда
     let data = localStorage.getItem('boards');
@@ -137,12 +138,22 @@
     } else {
         data = JSON.parse(data);
     }
-
+    //номер текущий доски
+    let currentBoardId = localStorage.getItem('current_board');
+    if (currentBoardId == null) {
+        currentBoardId = 0;
+    }
     console.log(data);
  
     renderBoards();
     renderWallpapers();
 
+
+    //запускаем рассыльщик через каждые 5 секунд
+    setInterval(function(){
+        sender();
+   }, 5000)
+    
 
     //функция сохранения
     function save() {
@@ -152,6 +163,9 @@
 
         //сохраняем в localStorage
         localStorage.setItem('boards',dataJson);
+
+        //сохраняем номер текущей доски
+        localStorage.setItem('current_board', currentBoardId);
     }
 
     //функция отрисовки досок
@@ -171,11 +185,14 @@
         //в цикле подставляем данные в шаблоны (СОБИРАЕМ ДОСКИ)
         for (let i = 0; i < data['boards'].length; i++ ) {
 
+            //если номер доски в списке не совпадает с номером текущей доски, то не рисуем её
+            if (i != currentBoardId){
+                continue;
+            }
 
             //собираем html колонок доски  (СОБИРАЕМ КОЛОНКИ ДОСКИ)
             let boardColumns = '';
             for (let j = 0; j < data['boards'][i]['columns'].length; j++) { 
-
 
                 //собираем html карточек колонки (СОБИРАЕМ КАРТОЧКИ КОЛОНКИ)
                 let columnCards = '';
@@ -191,7 +208,6 @@
                                             .replace('${card_notification}', (data['boards'][i]['columns'][j]['cards'][k]['time'] != '') ? '&#x2709;' : '');
                     //добавляем готовый текст карточки к картокам КОЛОНКИ
                     columnCards += cardHtml;
-
                 }
 
                 //html одной колоночки
@@ -223,24 +239,49 @@
                                              .replace('${board_number}',i)
                                              .replace('${board_content}',boardColumns);
         }
-
-
+        renderBoardsList();
     }
 
     //функция переименования доски
-    function boardRename(board_number) {
+    function boardRename() {
 
         let name = event.target.value;
 
-        data['boards'][board_number]['title'] = name;
+        data['boards'][currentBoardId]['title'] = name;
 
         save();
     }
 
+    //функция создания новой доски
+    function boardAdd(){
+        
+        //сщздаём объект пустой доски
+        let board = {
+                        "title":"Новая доска",
+                        "background": "https://klevtsovaelena.github.io/wallpaper/img/BlackWhite11.jpg",
+                        "columns":[
+                            {
+                                "title":"Новая колонка",
+                                "cards":[]
+                            }
+                        ]
+                    };
 
+        //добавляем объект в модель
+        data['boards'].push(board);
+
+        //переключаемся на новую доску
+        currentBoardId = data['boards'].length - 1;
+
+        //отрисовка новой доски
+        renderBoards();
+
+        //сохранение модели
+        save();
+    }
 
     //функция создания колонки
-    function columnAdd(board_number){
+    function columnAdd(){
 
         //создаем пустую колонку
         let column = {
@@ -249,7 +290,7 @@
                      }; 
 
         //добавляем колонку на доску
-        data['boards'][board_number]['columns'].push(column)  
+        data['boards'][currentBoardId]['columns'].push(column)  
 
         //вывести модель в консоль
         console.log(data);  
@@ -262,20 +303,20 @@
     }
 
     //функция переименования колонки
-    function columnRename(board_number, column_number) {
+    function columnRename(column_number) {
 
         //определяем содержимое инпута
         let name = event.target.value;
 
         //перезаписываем имя колонки в модели
-        data['boards'][board_number]['columns'][column_number]['title'] = name;
+        data['boards'][currentBoardId]['columns'][column_number]['title'] = name;
 
         //сохраняем
         save();
     }
 
     //функция для удаления колонок
-    function columnDelete(board_number, column_number) {
+    function columnDelete(column_number) {
 
         //спросить подтверждение
         let ok = confirm("Вы действительно хотите удалить колонку?");  //true / false
@@ -283,7 +324,7 @@
         if (ok) {
 
             //удаляем колонку из модели
-            data['boards'][board_number]['columns'].splice(column_number,1);
+            data['boards'][currentBoardId]['columns'].splice(column_number,1);
 
             //сохраняем
             save();
@@ -352,25 +393,46 @@
 
     }
 
-    function renderWallpapers(){
+    //отрисовка названий досок
+    function renderBoardsList(){
+
          //находим контейнер для обоев  
-         let wallpapersContainer = document.getElementById('wallpapers');
+         let container = document.getElementById('side-menu');
 
          //находим шаблон для обоев
-         let templateWallpapers = document.getElementById('tmpl-wallpapers').innerHTML;
+         let tmpl_board = document.getElementById('tmpl-board-line').innerHTML;
+
+         //очистим контейнер
+         container.innerHTML = "";
 
           //для каждой категории картинок
-         for (let i = 0; i<wallpaper.length; i++){
+         for (let i = 0; i < data['boards'].length; i++){
 
-             //выводим картинки этой категории
-             for (let j = 0; j<wallpaper[i]['image'].length; j++){
-
-                 wallpapersContainer.innerHTML += templateWallpapers .replace('${image}', wallpaper[i]['image'][j])
-                                                                     .replace('${image}', wallpaper[i]['image'][j]);
+            container.innerHTML += tmpl_board   .replace('${board_title}', data['boards'][i]['title'])
+                                                .replace('${board_num}', i);
                                                                                   
              }
-         }
     }
+
+    function renderWallpapers(){
+    //находим контейнер для обоев  
+        let wallpapersContainer = document.getElementById('wallpapers');
+
+        //находим шаблон для обоев
+        let templateWallpapers = document.getElementById('tmpl-wallpapers').innerHTML;
+
+         //для каждой категории картинок
+        for (let i = 0; i<wallpaper.length; i++){
+
+            //выводим картинки этой категории
+            for (let j = 0; j<wallpaper[i]['image'].length; j++){
+
+                wallpapersContainer.innerHTML += templateWallpapers .replace('${image}', wallpaper[i]['image'][j])
+                                                                    .replace('${image}', wallpaper[i]['image'][j]);
+                                                                                 
+            }
+        }
+   }
 
     //отрисовываем картинки для выбора фона доски 
     function toggleWallpapaers(){
@@ -378,6 +440,14 @@
         //показать блок с обоями
         document.getElementById('changeBackground').classList.toggle('wallpapers-activ');
    
+    }
+
+    //показываем меню с досками 
+    function toggleBoardsList(){
+
+        //показать блок с обоями
+        document.getElementById('side-menu').classList.toggle('side-menu-activ');
+    
     }
 
     //функция для замены обоев
@@ -396,3 +466,64 @@
         renderBoards();
 
     }
+
+    //функция переключения досок
+    function changeBoard(){
+
+        //определяем номер доски на котоую кликнули
+        let num = event.target.getAttribute('data-num');
+
+        //меняем текущий номер доски
+        currentBoardId = num;
+
+        //перерисовываем доски с учётом номера текущей доски
+        renderBoards();
+
+        //закрываем меню с досками
+        toggleBoardsList();
+
+        save();
+
+    }    
+
+    //функция 
+    function sender(){
+
+        //бежим по всем доскам в модели
+        for (let i = 0; i < data['boards'].length; i++) {
+            //бежим по всем колонкам доски
+            for (let j = 0; j < data['boards'][i]['columns'].length; j++) {
+                //бежим по всем задачам
+                for (let k = 0; k < data['boards'][i]['columns'][j]['cards'].length; k++) {
+
+                    //делаем рассылку задачи, если установлено время
+                    if (data['boards'][i]['columns'][j]['cards'][k]['time'] != '') {
+
+                        sendMessage(data['boards'][i]['columns'][j]['cards'][k]['title'], chat_id);
+
+                        //ставим отметку, что уже отправялось, затирая время
+                        data['boards'][i]['columns'][j]['cards'][k]['time'] = '';
+
+                    }
+                }
+            }
+        }
+
+        save();
+
+        //сравниваем время в задаче с текущим временем
+
+        //если время совпало, то делаем отправку этой задачи в телеграмм
+    }
+
+        //функция для отправки сообщения
+        function sendMessage(text, chat_id){
+
+            //формируем адрес запроса
+            let url = "https://api.telegram.org/bot5762215975:AAFTUVjFrf4pwSEQakOTE-RpYusGBWNZe5U/sendMessage?chat_id=" + chat_id + "&text=" + text;
+            
+            //отправляем запрос на этот адрес
+            let xhr = new XMLHttpRequest();
+            xhr.open('GET', url, true);
+            xhr.send();
+        }

@@ -8,17 +8,36 @@ body {
 }
 #changeBackground{
     position: fixed;
-    max-width: 380px;
+    width: 380px;
     height: 100vh;
     background-color:whitesmoke;
     z-index: 2;
     top: 0;
-    right: -400px;
+    right: -380px;
     overflow: scroll;
     transition: all 0.4s;
 }
 .wallpapers-activ{
     right: 0px !important;
+}
+#side-menu{
+    position: fixed;
+    width: 380px;
+    height: 100vh;
+    background-color:whitesmoke;
+    z-index: 2;
+    top: 0;
+    left: -380px;
+    transition: all 0.4s;
+}
+.side-menu-activ{
+    left: 0px !important;
+}
+.side-menu-item{
+    background-color: blueviolet;
+    color: white;
+    font-weight: bold;
+    margin: 5px;
 }
 #boards {
     font-family: 'Poppins', sans-serif;

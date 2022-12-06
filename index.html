@@ -11,7 +11,14 @@
     <div id="boards">
    
     </div>
-   
+
+    <div onclick="boardAdd()">
+        +++++
+    </div>
+
+    <div id="side-menu">
+    </div>
+
     <div id="changeBackground" class="">
         <div id="close-wallpapers" onclick="toggleWallpapaers()">
             &#10006;
@@ -21,13 +28,15 @@
         
     
     <template id="tmpl-wallpapers">
-
             <div id="lot" class="lot" style="background-image: url('${image}')" attr-image="${image}" onclick="boardChangeBackground()">
-
             </div>
-
     </template>
 
+    <template id="tmpl-board-line">
+        <div class="side-menu-item" onclick="changeBoard()" data-num = "${board_num}">
+            ${board_title}
+        </div>
+    </template>
 
 
     
@@ -42,13 +51,16 @@
                 <div>
                     <button class="btn" onclick="toggleWallpapaers()">Изменить фон</button>
                 </div>
+                <div>
+                    <button class="btn" onclick="toggleBoardsList()">доски</button>
+                </div>
             </div>
             <div class="board-content ">
                 <div class="flex-box">
                     ${board_content}
                 </div>
                 <div>
-                    <button class="btn" onclick="columnAdd(${board_number})">
+                    <button class="btn" onclick="columnAdd()">
                         Добавить колонку
                     </button>
                 </div>
@@ -60,9 +72,9 @@
         <div class="column">
             <div class="column-header flex-box">
                 <div>
-                    <input type="text" value="${column_header}" oninput="columnRename(${board_number}, ${column_number})">
+                    <input type="text" value="${column_header}" oninput="columnRename(${column_number})">
                 </div>
-                <div class="column-delete to-right" onclick="columnDelete(${board_number}, ${column_number})">
+                <div class="column-delete to-right" onclick="columnDelete(${column_number})">
                     х
                 </div>
             </div>
