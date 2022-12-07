@@ -1,5 +1,3 @@
-
-   
     //массив адресов обоев
     let wallpaper = [
         {   "title" : "popular",
@@ -496,24 +494,47 @@
                 //бежим по всем задачам
                 for (let k = 0; k < data['boards'][i]['columns'][j]['cards'].length; k++) {
 
-                    //делаем рассылку задачи, если установлено время
+                    //делаем рассылку задачи, если текущее время совпадает со временем задачи
                     if (data['boards'][i]['columns'][j]['cards'][k]['time'] != '') {
 
+                        //получаем текущее время и приводим его к такому же формату, как и time задачи (2022-12-07T17:37) 
+
+/*
+                        let timeNow = new Date();
+                        let timeNowFormatted = timeNow.toLocaleDateString() + "--" + timeNow.getHours().toString + ":" + timeNow.getMinutes().toString;
+                        alert(timeNowFormatted);
+                        let taskTime = new Date(data['boards'][i]['columns'][j]['cards'][k]['time']);
+                        let taskTimeFormatted = taskTime.toLocaleDateString() + "--"+taskTime.getHours() + ":" + taskTime.getMinutes();
+                        if (timeNowFormatted == taskTimeFormatted) 
+                        //если время совпало, то делаем отправку этой задачи в телеграмм
                         sendMessage(data['boards'][i]['columns'][j]['cards'][k]['title'], chat_id);
 
                         //ставим отметку, что уже отправялось, затирая время
                         data['boards'][i]['columns'][j]['cards'][k]['time'] = '';
+                    }else{
+                        console.log(timeNowFormatted + "---------" + taskTimeFormatted);
+                    }
+*/
+           
+        
+                        let dateNow = new Date();
+                        dateNow.setHours(dateNow.getHours()+3); //тк по умолчанию время на 3 часа меньше московского
+                        let dateNowFormatted = dateNow.toISOString().slice(0, -8);
 
+                        if (data['boards'][i]['columns'][j]['cards'][k]['time'] == dateNowFormatted){
+                       
+                            //если время совпало, то делаем отправку этой задачи в телеграмм
+                            sendMessage(data['boards'][i]['columns'][j]['cards'][k]['title'], chat_id);
+
+                            //ставим отметку, что уже отправялось, затирая время
+                            data['boards'][i]['columns'][j]['cards'][k]['time'] = '';
+                        }
                     }
                 }
             }
-        }
 
         save();
-
-        //сравниваем время в задаче с текущим временем
-
-        //если время совпало, то делаем отправку этой задачи в телеграмм
+        }
     }
 
         //функция для отправки сообщения
