@@ -135,14 +135,32 @@
         };
     } else {
         data = JSON.parse(data);
+        if (data['boards'].length == 0) {
+            //перезаписываем data
+            data = {
+                "boards":[
+                    {
+                        "title":"Новая доска",
+                        "background": "https://klevtsovaelena.github.io/wallpaper/img/BlackWhite11.jpg",
+                        "columns":[
+                            {
+                                "title":"Новая колонка",
+                                "cards":[]
+                            }
+                        ]
+                    }
+                ]
+            };
+        }
     }
+
     //номер текущий доски
     let currentBoardId = localStorage.getItem('current_board');
     if (currentBoardId == null) {
         currentBoardId = 0;
     }
     console.log(data);
- 
+
     renderBoards();
     renderWallpapers();
 
@@ -168,6 +186,8 @@
 
     //функция отрисовки досок
     function renderBoards() {
+
+
 
         //получаем шаблоны
         let tmpl_board = document.getElementById('tmpl-board').innerHTML;
@@ -230,16 +250,6 @@
         renderBoardsList();
     }
 
-    //функция переименования доски
-    function boardRename() {
-
-        let name = event.target.value;
-
-        data['boards'][currentBoardId]['title'] = name;
-
-        save();
-    }
-
     //функция создания новой доски
     function boardAdd(){
         
@@ -268,6 +278,50 @@
         save();
     }
 
+    //функция переименования доски
+    function boardRename() {
+
+        let name = event.target.value;
+
+        data['boards'][currentBoardId]['title'] = name;
+
+        save();
+    }
+
+    //функция для удаления доски
+    function boardDelete() {
+
+        //спросить подтверждение
+        let ok = confirm("Вы действительно хотите удалить доску?");  //true / false
+
+        if (ok) {
+
+        //удаляем доску
+        
+        data['boards'].splice(currentBoardId, 1);
+        
+        //сохраняем
+        save();
+
+        //если все доски удалены, то перезагружаем страницу. 
+        //а при этом будет отрисована стартовая новая доска
+        if (data['boards'].length == 0) {
+            window.location.reload();
+        } 
+        //если же была удалена последняя доска, то значение currentBoardId будет 
+        //больше допустимого (индекс элемента за пределами массива),
+        //в этом случае устанавливаем стартовое значение  currentBoardId = 0
+        if (currentBoardId >=  data['boards'].length) {
+            currentBoardId = 0;
+        } 
+
+        save();
+        
+        //перерисовываем
+        renderBoards();
+        } 
+
+    }
     //функция создания колонки
     function columnAdd(){
 
@@ -323,13 +377,12 @@
         
     }
 
+    //показать форму для заполнения названия и описания задачи
     function showAddCardForm(){
-        //форму для заполнения названия и описания задачи
-
+       
         let id_formCardAdd = event.target.closest('.column').querySelector('.formCardAdd');
      
         id_formCardAdd.style.display="block";
-
     }
 
     //функция добавления карточки(задачи)
@@ -359,7 +412,6 @@
 
         save();
     }
-
 
     //функция удаления карточки
     function cardDelete(board_number, column_number, card_number) {
@@ -402,27 +454,28 @@
              }
     }
 
+    //отрисовываем картинки для выбора фона доски
     function renderWallpapers(){
-    //находим контейнер для обоев  
-        let wallpapersContainer = document.getElementById('wallpapers');
+        //находим контейнер для обоев  
+            let wallpapersContainer = document.getElementById('wallpapers');
 
-        //находим шаблон для обоев
-        let templateWallpapers = document.getElementById('tmpl-wallpapers').innerHTML;
+            //находим шаблон для обоев
+            let templateWallpapers = document.getElementById('tmpl-wallpapers').innerHTML;
 
-         //для каждой категории картинок
-        for (let i = 0; i<wallpaper.length; i++){
+            //для каждой категории картинок
+            for (let i = 0; i<wallpaper.length; i++){
 
-            //выводим картинки этой категории
-            for (let j = 0; j<wallpaper[i]['image'].length; j++){
+                //выводим картинки этой категории
+                for (let j = 0; j<wallpaper[i]['image'].length; j++){
 
-                wallpapersContainer.innerHTML += templateWallpapers .replace('${image}', wallpaper[i]['image'][j])
-                                                                    .replace('${image}', wallpaper[i]['image'][j]);
-                                                                                 
+                    wallpapersContainer.innerHTML += templateWallpapers .replace('${image}', wallpaper[i]['image'][j])
+                                                                        .replace('${image}', wallpaper[i]['image'][j]);
+                                                                                    
+                }
             }
-        }
-   }
+    }
 
-    //отрисовываем картинки для выбора фона доски 
+    //показываем/скрываем меню с обоями 
     function toggleWallpapaers(){
 
         //показать блок с обоями
@@ -430,7 +483,7 @@
    
     }
 
-    //показываем меню с досками 
+    //показываем/скрываем меню с досками 
     function toggleBoardsList(){
 
         //показать блок с обоями
@@ -474,7 +527,7 @@
 
     }    
 
-    //функция 
+    //функция рассыльщика
     function sender(){
 
         //бежим по всем доскам в модели
@@ -536,14 +589,14 @@
         }
     }
 
-        //функция для отправки сообщения
-        function sendMessage(text, chat_id){
+    //функция для отправки сообщения
+    function sendMessage(text, chat_id){
 
-            //формируем адрес запроса
-            let url = "https://api.telegram.org/bot5762215975:AAFTUVjFrf4pwSEQakOTE-RpYusGBWNZe5U/sendMessage?chat_id=" + chat_id + "&text=" + text;
-            
-            //отправляем запрос на этот адрес
-            let xhr = new XMLHttpRequest();
-            xhr.open('GET', url, true);
-            xhr.send();
-        }
+        //формируем адрес запроса
+        let url = "https://api.telegram.org/bot5762215975:AAFTUVjFrf4pwSEQakOTE-RpYusGBWNZe5U/sendMessage?chat_id=" + chat_id + "&text=" + text;
+        
+        //отправляем запрос на этот адрес
+        let xhr = new XMLHttpRequest();
+        xhr.open('GET', url, true);
+        xhr.send();
+    }
