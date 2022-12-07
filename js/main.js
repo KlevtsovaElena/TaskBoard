@@ -494,8 +494,8 @@
 
                         //получаем текущее время и приводим его к такому же формату, как и time задачи (2022-12-07T17:37) 
                         let dateNow = new Date();
-                        dateNow.setHours(dateNow.getHours()+3); //тк по умолчанию время на 3 часа меньше московского
-                        let dateNowFormatted = dateNow.toISOString().slice(0, -8);
+
+                        let dateNowFormatted = dateNow.toISOString().slice(0, -13) + dateNow.toLocaleTimeString().slice(0,-3);
 
                         if (data['boards'][i]['columns'][j]['cards'][k]['time'] == dateNowFormatted){
                        
