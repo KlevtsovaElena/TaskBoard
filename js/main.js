@@ -211,12 +211,6 @@
                 //html одной колоночки
                 let columnHtml = tmpl_column.replace('${column_header}',data['boards'][i]['columns'][j]['title'])
                                             .replace('${board_number}',i)
-                                            .replace('${board_number}',i)
-                                            .replace('${board_number}',i)
-                                            .replace('${board_number}',i)
-                                            .replace('${board_number}',i)
-                                            .replace('${column_number}',j)
-                                            .replace('${column_number}',j)
                                             .replace('${column_number}',j)
                                             .replace('${column_number}',j)
                                             .replace('${column_number}',j)
@@ -230,11 +224,7 @@
             //подстваляем данные в шаблон доски и добавляем в контейнер
             container.innerHTML += tmpl_board.replace('${board_header}',data['boards'][i]['title'])
                                              .replace('${board_background}',data['boards'][i]['background']) 
-                                             .replace('${board_background}',data['boards'][i]['background']) 
                                              .replace('${board_number}',i) 
-                                             .replace('${board_number}',i) 
-                                             .replace('${board_number}',i)
-                                             .replace('${board_number}',i)
                                              .replace('${board_content}',boardColumns);
         }
         renderBoardsList();
@@ -496,10 +486,33 @@
 
                     //делаем рассылку задачи, если текущее время совпадает со временем задачи
                     if (data['boards'][i]['columns'][j]['cards'][k]['time'] != '') {
+                
+                    /*    вариант1: получаем текущую дату, добавляем 3 часа (тк по умолчанию -3 от Москвы)
+                       текущую дату форматируем в строку и убдаляем ненужные символы с конца, чтобы формат был
+                       такой же, как и в строке времени задачи
+                     */
 
                         //получаем текущее время и приводим его к такому же формату, как и time задачи (2022-12-07T17:37) 
+                        let dateNow = new Date();
+                        dateNow.setHours(dateNow.getHours()+3); //тк по умолчанию время на 3 часа меньше московского
+                        let dateNowFormatted = dateNow.toISOString().slice(0, -8);
 
-/*
+                        if (data['boards'][i]['columns'][j]['cards'][k]['time'] == dateNowFormatted){
+                       
+                            //если время совпало, то делаем отправку этой задачи в телеграмм
+                            sendMessage(data['boards'][i]['columns'][j]['cards'][k]['title'], chat_id);
+
+                            //ставим отметку, что уже отправялось, затирая время
+                            data['boards'][i]['columns'][j]['cards'][k]['time'] = '';
+                        }
+
+                        /*
+                        вариант2: приводим строку  data['boards'][i]['columns'][j]['cards'][k]['time'] к типу Date()
+                                    через new Date(----). 
+                                    Создаём две переменные: 1 - для текущей даты, 2 - для даты задачи.
+                                    Приводим их к Одинаковому формату. 
+                                    И сравниваем эти 2 переменные
+
                         let timeNow = new Date();
                         let timeNowFormatted = timeNow.toLocaleDateString() + "--" + timeNow.getHours().toString + ":" + timeNow.getMinutes().toString;
                         alert(timeNowFormatted);
@@ -515,20 +528,6 @@
                         console.log(timeNowFormatted + "---------" + taskTimeFormatted);
                     }
 */
-           
-        
-                        let dateNow = new Date();
-                        dateNow.setHours(dateNow.getHours()+3); //тк по умолчанию время на 3 часа меньше московского
-                        let dateNowFormatted = dateNow.toISOString().slice(0, -8);
-
-                        if (data['boards'][i]['columns'][j]['cards'][k]['time'] == dateNowFormatted){
-                       
-                            //если время совпало, то делаем отправку этой задачи в телеграмм
-                            sendMessage(data['boards'][i]['columns'][j]['cards'][k]['title'], chat_id);
-
-                            //ставим отметку, что уже отправялось, затирая время
-                            data['boards'][i]['columns'][j]['cards'][k]['time'] = '';
-                        }
                     }
                 }
             }
