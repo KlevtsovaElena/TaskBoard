@@ -1,113 +1,80 @@
     //массив адресов обоев
-    let wallpaper = [
-        {   "title" : "popular",
-            "title-rus" : "Популярное",
-            "image": [
-                "https://klevtsovaelena.github.io/wallpaper/img/1.jpg",
-                "https://klevtsovaelena.github.io/wallpaper/img/2.jpg",
-                "https://klevtsovaelena.github.io/wallpaper/img/3.jpg",
-                "https://klevtsovaelena.github.io/wallpaper/img/4.png",
-                "https://klevtsovaelena.github.io/wallpaper/img/5.jpg",
-                "https://klevtsovaelena.github.io/wallpaper/img/6.jpg",
-                "https://klevtsovaelena.github.io/wallpaper/img/7.jpg",
-                "https://klevtsovaelena.github.io/wallpaper/img/8.jpg",
-                "https://klevtsovaelena.github.io/wallpaper/img/9.jpg",
-                "https://klevtsovaelena.github.io/wallpaper/img/10.jpg",
-                "https://klevtsovaelena.github.io/wallpaper/img/11.jpg",
-                "https://klevtsovaelena.github.io/wallpaper/img/12.jpg",
-                
+    let wallpaper = {   "image": [
+                            "https://klevtsovaelena.github.io/wallpaper/img/BlackWhite1.jpg",
+                            "https://klevtsovaelena.github.io/wallpaper/img/BlackWhite2.jpg",
+                            "https://klevtsovaelena.github.io/wallpaper/img/BlackWhite3.jpg",
+                            "https://klevtsovaelena.github.io/wallpaper/img/BlackWhite4.jpg",
+                            "https://klevtsovaelena.github.io/wallpaper/img/BlackWhite5.jpg",
+                            "https://klevtsovaelena.github.io/wallpaper/img/BlackWhite6.jpg",
+                            "https://klevtsovaelena.github.io/wallpaper/img/BlackWhite7.jpg",
+                            "https://klevtsovaelena.github.io/wallpaper/img/BlackWhite8.jpg",
+                            "https://klevtsovaelena.github.io/wallpaper/img/BlackWhite9.jpg",
+                            "https://klevtsovaelena.github.io/wallpaper/img/BlackWhite10.jpg",
+                            "https://klevtsovaelena.github.io/wallpaper/img/BlackWhite11.jpg",
+                            "https://klevtsovaelena.github.io/wallpaper/img/BlackWhite12.jpg",
+                            "https://klevtsovaelena.github.io/wallpaper/img/1.jpg",
+                            "https://klevtsovaelena.github.io/wallpaper/img/2.jpg",
+                            "https://klevtsovaelena.github.io/wallpaper/img/3.jpg",
+                            "https://klevtsovaelena.github.io/wallpaper/img/4.png",
+                            "https://klevtsovaelena.github.io/wallpaper/img/5.jpg",
+                            "https://klevtsovaelena.github.io/wallpaper/img/6.jpg",
+                            "https://klevtsovaelena.github.io/wallpaper/img/7.jpg",
+                            "https://klevtsovaelena.github.io/wallpaper/img/8.jpg",
+                            "https://klevtsovaelena.github.io/wallpaper/img/9.jpg",
+                            "https://klevtsovaelena.github.io/wallpaper/img/10.jpg",
+                            "https://klevtsovaelena.github.io/wallpaper/img/11.jpg",
+                            "https://klevtsovaelena.github.io/wallpaper/img/12.jpg",
+                            "https://klevtsovaelena.github.io/wallpaper/img/Shine1.jpg",
+                            "https://klevtsovaelena.github.io/wallpaper/img/Shine2.jpg",
+                            "https://klevtsovaelena.github.io/wallpaper/img/Shine3.jpg",
+                            "https://klevtsovaelena.github.io/wallpaper/img/Shine4.jpg",
+                            "https://klevtsovaelena.github.io/wallpaper/img/Shine5.jpg",
+                            "https://klevtsovaelena.github.io/wallpaper/img/Shine6.jpg",
+                            "https://klevtsovaelena.github.io/wallpaper/img/Shine7.jpg",
+                            "https://klevtsovaelena.github.io/wallpaper/img/Shine8.jpg",
+                            "https://klevtsovaelena.github.io/wallpaper/img/Shine9.jpg",
+                            "https://klevtsovaelena.github.io/wallpaper/img/Shine10.jpg",
+                            "https://klevtsovaelena.github.io/wallpaper/img/Shine11.jpg",
+                            "https://klevtsovaelena.github.io/wallpaper/img/Shine12.jpg",
+                            "https://klevtsovaelena.github.io/wallpaper/img/Winter1.jpg",
+                            "https://klevtsovaelena.github.io/wallpaper/img/Winter2.jpg",
+                            "https://klevtsovaelena.github.io/wallpaper/img/Winter3.jpg",
+                            "https://klevtsovaelena.github.io/wallpaper/img/Winter4.jpg",
+                            "https://klevtsovaelena.github.io/wallpaper/img/Winter5.jpg",
+                            "https://klevtsovaelena.github.io/wallpaper/img/Winter6.jpg",
+                            "https://klevtsovaelena.github.io/wallpaper/img/Winter7.jpg",
+                            "https://klevtsovaelena.github.io/wallpaper/img/Winter8.jpg",
+                            "https://klevtsovaelena.github.io/wallpaper/img/Winter9.jpg",
+                            "https://klevtsovaelena.github.io/wallpaper/img/Winter10.jpg",
+                            "https://klevtsovaelena.github.io/wallpaper/img/Winter11.jpg",
+                            "https://klevtsovaelena.github.io/wallpaper/img/Winter12.jpg",
+                            "https://klevtsovaelena.github.io/wallpaper/img/Fire1.jpg",
+                            "https://klevtsovaelena.github.io/wallpaper/img/Fire2.jpg",
+                            "https://klevtsovaelena.github.io/wallpaper/img/Fire3.jpg",
+                            "https://klevtsovaelena.github.io/wallpaper/img/Fire4.jpg",
+                            "https://klevtsovaelena.github.io/wallpaper/img/Fire5.jpg",
+                            "https://klevtsovaelena.github.io/wallpaper/img/Fire6.jpg",
+                            "https://klevtsovaelena.github.io/wallpaper/img/Fire7.jpeg",
+                            "https://klevtsovaelena.github.io/wallpaper/img/Fire8.png",
+                            "https://klevtsovaelena.github.io/wallpaper/img/Fire9.jpg",
+                            "https://klevtsovaelena.github.io/wallpaper/img/Fire10.jpg",
+                            "https://klevtsovaelena.github.io/wallpaper/img/Fire11.jpg",
+                            "https://klevtsovaelena.github.io/wallpaper/img/Fire12.jpg",
+                            "https://klevtsovaelena.github.io/wallpaper/img/Flower1.jpg",
+                            "https://klevtsovaelena.github.io/wallpaper/img/Flower2.jpg",
+                            "https://klevtsovaelena.github.io/wallpaper/img/Flower3.jpeg",
+                            "https://klevtsovaelena.github.io/wallpaper/img/Flower4.jpg",
+                            "https://klevtsovaelena.github.io/wallpaper/img/Flower5.jpg",
+                            "https://klevtsovaelena.github.io/wallpaper/img/Flower6.jpg",
+                            "https://klevtsovaelena.github.io/wallpaper/img/Flower7.jpg",
+                            "https://klevtsovaelena.github.io/wallpaper/img/Flower8.jpg",
+                            "https://klevtsovaelena.github.io/wallpaper/img/Flower9.jpg",
+                            "https://klevtsovaelena.github.io/wallpaper/img/Flower10.jpg",
+                            "https://klevtsovaelena.github.io/wallpaper/img/Flower11.jpg",
+                            "https://klevtsovaelena.github.io/wallpaper/img/Flower12.jpg",
             ]
-        },
-        {   "title" : "black_white",
-            "title-rus" : "Чёрно-белое",
-            "image": [
-                "https://klevtsovaelena.github.io/wallpaper/img/BlackWhite1.jpg",
-                "https://klevtsovaelena.github.io/wallpaper/img/BlackWhite2.jpg",
-                "https://klevtsovaelena.github.io/wallpaper/img/BlackWhite3.jpg",
-                "https://klevtsovaelena.github.io/wallpaper/img/BlackWhite4.jpg",
-                "https://klevtsovaelena.github.io/wallpaper/img/BlackWhite5.jpg",
-                "https://klevtsovaelena.github.io/wallpaper/img/BlackWhite6.jpg",
-                "https://klevtsovaelena.github.io/wallpaper/img/BlackWhite7.jpg",
-                "https://klevtsovaelena.github.io/wallpaper/img/BlackWhite8.jpg",
-                "https://klevtsovaelena.github.io/wallpaper/img/BlackWhite9.jpg",
-                "https://klevtsovaelena.github.io/wallpaper/img/BlackWhite10.jpg",
-                "https://klevtsovaelena.github.io/wallpaper/img/BlackWhite11.jpg",
-                "https://klevtsovaelena.github.io/wallpaper/img/BlackWhite12.jpg",
-                
-            ]
-        },
-        {   "title" : "north_lights",
-            "title-rus" : "Северное сияние",
-            "image": [
-                "https://klevtsovaelena.github.io/wallpaper/img/Shine1.jpg",
-                "https://klevtsovaelena.github.io/wallpaper/img/Shine2.jpg",
-                "https://klevtsovaelena.github.io/wallpaper/img/Shine3.jpg",
-                "https://klevtsovaelena.github.io/wallpaper/img/Shine4.jpg",
-                "https://klevtsovaelena.github.io/wallpaper/img/Shine5.jpg",
-                "https://klevtsovaelena.github.io/wallpaper/img/Shine6.jpg",
-                "https://klevtsovaelena.github.io/wallpaper/img/Shine7.jpg",
-                "https://klevtsovaelena.github.io/wallpaper/img/Shine8.jpg",
-                "https://klevtsovaelena.github.io/wallpaper/img/Shine9.jpg",
-                "https://klevtsovaelena.github.io/wallpaper/img/Shine10.jpg",
-                "https://klevtsovaelena.github.io/wallpaper/img/Shine11.jpg",
-                "https://klevtsovaelena.github.io/wallpaper/img/Shine12.jpg",
-                
-            ]
-        },
-        {   "title" : "winter",
-            "title-rus" : "Зима",
-            "image": [
-                "https://klevtsovaelena.github.io/wallpaper/img/Winter1.jpg",
-                "https://klevtsovaelena.github.io/wallpaper/img/Winter2.jpg",
-                "https://klevtsovaelena.github.io/wallpaper/img/Winter3.jpg",
-                "https://klevtsovaelena.github.io/wallpaper/img/Winter4.jpg",
-                "https://klevtsovaelena.github.io/wallpaper/img/Winter5.jpg",
-                "https://klevtsovaelena.github.io/wallpaper/img/Winter6.jpg",
-                "https://klevtsovaelena.github.io/wallpaper/img/Winter7.jpg",
-                "https://klevtsovaelena.github.io/wallpaper/img/Winter8.jpg",
-                "https://klevtsovaelena.github.io/wallpaper/img/Winter9.jpg",
-                "https://klevtsovaelena.github.io/wallpaper/img/Winter10.jpg",
-                "https://klevtsovaelena.github.io/wallpaper/img/Winter11.jpg",
-                "https://klevtsovaelena.github.io/wallpaper/img/Winter12.jpg",
-                
-            ]
-        },
-        {   "title" : "fire",
-            "title-rus" : "Фейерверки",
-            "image": [
-                "https://klevtsovaelena.github.io/wallpaper/img/Fire1.jpg",
-                "https://klevtsovaelena.github.io/wallpaper/img/Fire2.jpg",
-                "https://klevtsovaelena.github.io/wallpaper/img/Fire3.jpg",
-                "https://klevtsovaelena.github.io/wallpaper/img/Fire4.jpg",
-                "https://klevtsovaelena.github.io/wallpaper/img/Fire5.jpg",
-                "https://klevtsovaelena.github.io/wallpaper/img/Fire6.jpg",
-                "https://klevtsovaelena.github.io/wallpaper/img/Fire7.jpeg",
-                "https://klevtsovaelena.github.io/wallpaper/img/Fire8.png",
-                "https://klevtsovaelena.github.io/wallpaper/img/Fire9.jpg",
-                "https://klevtsovaelena.github.io/wallpaper/img/Fire10.jpg",
-                "https://klevtsovaelena.github.io/wallpaper/img/Fire11.jpg",
-                "https://klevtsovaelena.github.io/wallpaper/img/Fire12.jpg",
-                
-            ]
-        },
-        {   "title" : "flower",
-            "title-rus" : "Цветы",
-            "image": [
-                "https://klevtsovaelena.github.io/wallpaper/img/Flower1.jpg",
-                "https://klevtsovaelena.github.io/wallpaper/img/Flower2.jpg",
-                "https://klevtsovaelena.github.io/wallpaper/img/Flower3.jpeg",
-                "https://klevtsovaelena.github.io/wallpaper/img/Flower4.jpg",
-                "https://klevtsovaelena.github.io/wallpaper/img/Flower5.jpg",
-                "https://klevtsovaelena.github.io/wallpaper/img/Flower6.jpg",
-                "https://klevtsovaelena.github.io/wallpaper/img/Flower7.jpg",
-                "https://klevtsovaelena.github.io/wallpaper/img/Flower8.jpg",
-                "https://klevtsovaelena.github.io/wallpaper/img/Flower9.jpg",
-                "https://klevtsovaelena.github.io/wallpaper/img/Flower10.jpg",
-                "https://klevtsovaelena.github.io/wallpaper/img/Flower11.jpg",
-                "https://klevtsovaelena.github.io/wallpaper/img/Flower12.jpg",
-            ]
-        },
-      ]
+        }
+      
 
     //адрес юзера в телеграмм
     let chat_id = 1752911328;
@@ -245,7 +212,8 @@
             container.innerHTML += tmpl_board.replace('${board_header}',data['boards'][i]['title'])
                                              .replace('${board_background}',data['boards'][i]['background']) 
                                              .replace('${board_number}',i) 
-                                             .replace('${board_content}',boardColumns);
+                                             .replace('${board_content}',boardColumns)
+                                             .replace('${image}', data['boards'][i]['background']);
         }
         renderBoardsList();
     }
@@ -436,7 +404,7 @@
     function renderBoardsList(){
 
          //находим контейнер для обоев  
-         let container = document.getElementById('side-menu');
+         let container = document.getElementById('board-list');
 
          //находим шаблон для обоев
          let tmpl_board = document.getElementById('tmpl-board-line').innerHTML;
@@ -462,15 +430,15 @@
             let templateWallpapers = document.getElementById('tmpl-wallpapers').innerHTML;
 
             //для каждой категории картинок
-            for (let i = 0; i<wallpaper.length; i++){
+            for (let i = 0; i<wallpaper['image'].length; i++){
 
                 //выводим картинки этой категории
-                for (let j = 0; j<wallpaper[i]['image'].length; j++){
 
-                    wallpapersContainer.innerHTML += templateWallpapers .replace('${image}', wallpaper[i]['image'][j])
-                                                                        .replace('${image}', wallpaper[i]['image'][j]);
+
+                    wallpapersContainer.innerHTML += templateWallpapers .replace('${image}', wallpaper['image'][i])
+                                                                        .replace('${image}', wallpaper['image'][i]);
                                                                                     
-                }
+
             }
     }
 
@@ -539,13 +507,15 @@
                     //делаем рассылку задачи, если текущее время совпадает со временем задачи
                     if (data['boards'][i]['columns'][j]['cards'][k]['time'] != '') {
                 
-                        //получаем текущее время и приводим его к такому же формату, как и time задачи (2022-12-07T17:37) 
+                        //получаем текущее время 
                         let now = new Date();
-                        let dateNow = now.toLocaleDateString();
-                        let timeNow = now.toLocaleTimeString().slice(0, -3);
+                        let dateNow = now.toLocaleDateString(); //получаем 07.12.2022
+                        let timeNow = now.toLocaleTimeString().slice(0, -3); //получаем 20:15 (без секунд)
+
+                        //и приводим его к такому же формату, как и time задачи (2022-12-07T20:15)
                         let dateNowFormatted = dateNow.substring(6) + "-" + dateNow.substring(3, 5) + "-" + dateNow.substring(0, 2) + "T" + timeNow;
                        
-                        
+                        //далее сравниваем текущее время и время задачи
                         if (data['boards'][i]['columns'][j]['cards'][k]['time'] == dateNowFormatted){
                        
                             //если время совпало, то делаем отправку этой задачи в телеграмм

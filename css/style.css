@@ -43,7 +43,49 @@ body {
     font-family: 'Poppins', sans-serif;
     position: relative;
 }
-
+#board-icon {
+    height: 20px;
+    width: 20px;
+    background-image: url("../img/board2.png");
+    background-size: cover;
+    background-position: center center;
+    margin-right: 5px;
+    opacity: 0.5;
+}
+.save {
+    height: 20px;
+    width: 20px;
+    background-image: url("../img/save.png");
+    background-size: cover;
+    background-position: center center;
+    margin-right: 5px;
+    opacity: 0.7;
+}
+#fon-icon {
+    height: 20px;
+    width: 36px;
+    opacity: 0.7;
+    background-size: cover;
+    background-position: center center;
+    margin-right: 5px;
+    border-radius: 3px;
+}
+#save-icon {
+    font-size: 14px;
+    border-color: transparent;
+    background-color: transparent;
+    border-radius: 3px;
+    min-width: 100px;
+    height: 30px;
+    cursor: pointer;
+    padding: 3px;
+    transition: all 0.3s;
+    margin: 1px;
+    transition: all 0.3s;
+}
+#save-icon:hover {
+    background-color: rgba(0, 0, 0, 0.2);
+}
 .board {
     color: white;
     height: 100vh;
@@ -51,22 +93,33 @@ body {
 
 .board-header {
     padding: 10px;
-    justify-content: center;
+    justify-content: left;
     align-items: center;
-    column-gap: 10px;
+    column-gap: 20px;
 }
 
 .board-header input {
     color: white;
-    font-size: 40px;
+    font-size: 20px;
+    width: 200px;
     background-color: transparent;
     border: none;
+    border-radius: 3px;
     text-align: center;
+    padding: 7px;
+    transition: all 0.3s;
+}
+.board-header input:hover {
+   background-color: rgba(255, 255, 255, 0.4);
+   border-radius: 3px;
+   cursor: pointer;
 }
 
 .board-header input:focus {
     color: black;
     background-color: white;
+    outline: none;
+
 }
 
 .board-content {
@@ -76,29 +129,38 @@ body {
 .column {
     color: black;
     width: 250px;
-    background-color: gainsboro;
-    margin: 0 10px ;
+    background-color: #E8E8E8;
+    margin: 5px 10px ;
     padding: 5px;
     box-sizing: border-box;
-    border-radius: 5px;
+    border-radius: 3px;
 }
 
 .column-header {
-    font-size: 25px;
+    font-size: 18px;
     font-weight: bold;
     padding: 0 5px 0;
 }
 
 .column-header input {
-    font-size: 25px;
+    font-size: 18px;
     font-weight: bold;
     background-color: transparent;
     border: none;
+    padding: 5px;
     max-width: 200px;
-}
+    border-radius: 3px;
+    transition: all 0.3s;
 
+}
+.column-header input:hover {
+    background-color: rgba(0, 0, 0, 0.12);
+    cursor: pointer;
+    
+}
 .column-header input:focus {
     background-color: white;
+    outline: none;
 }
 
 
@@ -110,19 +172,27 @@ body {
 .column-delete {
     display: none;
     cursor: pointer;
+    transition: all 0.3s;
 }
 
 .column:hover .column-delete {
     display: block;
 }
 
+
 .card {
-    background-color: ghostwhite;
-    border-radius: 5px;
+    background-color: white;
+    font-size: 14px;
+    border-radius: 3px;
     margin: 5px 0;
     position: relative;
     padding: 5px;
     box-sizing: border-box;
+    transition: all 0.3s;
+}
+.card:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+    cursor: pointer;
 }
 
 .card-delete {
@@ -131,6 +201,7 @@ body {
     position: absolute;
     top: 5px;
     right: 5px;
+    transition: all 0.3s;
 }
 
 .card:hover .card-delete {
@@ -150,7 +221,7 @@ body {
     padding-left: 330px;
 }
 .ghost {
-    opacity: 0.5;
+    opacity: 0.7;
 }
 .d-none{
     display: none;
@@ -174,13 +245,31 @@ body {
 .btn-addCard{
     cursor: pointer;
     padding: 5px;
-    text-align: center;
+    text-align: left;
+    font-size: 14px;
+    border-radius: 3px;
+    transition: all 0.3s;
+}
+.btn-addCard:hover {
+    background-color: rgba(0, 0, 0, 0.2);
+
 }
 .btn{
-    background-color: rgba(0,0,0,0.6);
+    background-color: rgba(255,255,255,0.25);
     color: white;
-    border-color: white;
-    width: 150px;
-    height: 30px;
+    font-size: 16px;
+    border-color: transparent;
+    border-radius: 3px;
+    min-width: 100px;
+    height: 38px;
     cursor: pointer;
+    padding: 8px;
+    transition: all 0.3s;
+}
+.btn:hover {
+    background-color: rgba(255,255,255,0.4);
+}
+.clmn-add {
+    font-size: 14px;
+    margin-top: 5px;
 }
