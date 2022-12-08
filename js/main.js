@@ -299,7 +299,14 @@
         //удаляем доску
         
         data['boards'].splice(currentBoardId, 1);
-        
+            
+        //если была удалена последняя доска, то значение currentBoardId будет 
+        //больше допустимого (индекс элемента за пределами массива),
+        //в этом случае устанавливаем стартовое значение  currentBoardId = 0
+        if (currentBoardId >=  data['boards'].length) {
+            currentBoardId = 0;
+        }    
+
         //сохраняем
         save();
 
@@ -308,15 +315,7 @@
         if (data['boards'].length == 0) {
             window.location.reload();
         } 
-        //если же была удалена последняя доска, то значение currentBoardId будет 
-        //больше допустимого (индекс элемента за пределами массива),
-        //в этом случае устанавливаем стартовое значение  currentBoardId = 0
-        if (currentBoardId >=  data['boards'].length) {
-            currentBoardId = 0;
-        } 
 
-        save();
-        
         //перерисовываем
         renderBoards();
         } 
@@ -540,16 +539,13 @@
                     //делаем рассылку задачи, если текущее время совпадает со временем задачи
                     if (data['boards'][i]['columns'][j]['cards'][k]['time'] != '') {
                 
-                    /*    вариант1: получаем текущую дату, добавляем 3 часа (тк по умолчанию -3 от Москвы)
-                       текущую дату форматируем в строку и убдаляем ненужные символы с конца, чтобы формат был
-                       такой же, как и в строке времени задачи
-                     */
-
                         //получаем текущее время и приводим его к такому же формату, как и time задачи (2022-12-07T17:37) 
-                        let dateNow = new Date();
-
-                        let dateNowFormatted = dateNow.toISOString().slice(0, -13) + dateNow.toLocaleTimeString().slice(0,-3);
-
+                        let now = new Date();
+                        let dateNow = now.toLocaleDateString();
+                        let timeNow = now.toLocaleTimeString().slice(0, -3);
+                        let dateNowFormatted = dateNow.substring(6) + "-" + dateNow.substring(3, 5) + "-" + dateNow.substring(0, 2) + "T" + timeNow;
+                       
+                        
                         if (data['boards'][i]['columns'][j]['cards'][k]['time'] == dateNowFormatted){
                        
                             //если время совпало, то делаем отправку этой задачи в телеграмм
@@ -557,30 +553,11 @@
 
                             //ставим отметку, что уже отправялось, затирая время
                             data['boards'][i]['columns'][j]['cards'][k]['time'] = '';
+                        } else {
+                            console.log(data['boards'][i]['columns'][j]['cards'][k]['time'] + "------------" + dateNowFormatted);
                         }
 
-                        /*
-                        вариант2: приводим строку  data['boards'][i]['columns'][j]['cards'][k]['time'] к типу Date()
-                                    через new Date(----). 
-                                    Создаём две переменные: 1 - для текущей даты, 2 - для даты задачи.
-                                    Приводим их к Одинаковому формату. 
-                                    И сравниваем эти 2 переменные
-
-                        let timeNow = new Date();
-                        let timeNowFormatted = timeNow.toLocaleDateString() + "--" + timeNow.getHours().toString + ":" + timeNow.getMinutes().toString;
-                        alert(timeNowFormatted);
-                        let taskTime = new Date(data['boards'][i]['columns'][j]['cards'][k]['time']);
-                        let taskTimeFormatted = taskTime.toLocaleDateString() + "--"+taskTime.getHours() + ":" + taskTime.getMinutes();
-                        if (timeNowFormatted == taskTimeFormatted) 
-                        //если время совпало, то делаем отправку этой задачи в телеграмм
-                        sendMessage(data['boards'][i]['columns'][j]['cards'][k]['title'], chat_id);
-
-                        //ставим отметку, что уже отправялось, затирая время
-                        data['boards'][i]['columns'][j]['cards'][k]['time'] = '';
-                    }else{
-                        console.log(timeNowFormatted + "---------" + taskTimeFormatted);
-                    }
-*/
+ 
                     }
                 }
             }
