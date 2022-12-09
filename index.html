@@ -14,17 +14,25 @@
 
 
 
-    <div id="side-menu">
-        <div onclick="boardAdd()">
-            Добавить доску 
-        </div>
-        <div id="board-list">
+    <div id="side-menu" class="">
+        <div class="flex-box p-relative">
+            <div class="bl-container">
+                <div id="add-board" onclick="boardAdd()">
+                + Добавить доску 
+                </div>
+                
+                <div id="board-list">
+                </div>
+            </div>
+            <div class="close-boardList" onclick="toggleBoardsList()">
+                &#10094;
+            </div>
         </div>
     </div>
 
-    <div id="changeBackground" class="">
-        <div id="close-wallpapers" onclick="toggleWallpapaers()">
-            &#10006;
+    <div id="changeBackground" class="flex-box">
+        <div class="close-wallpapers" onclick="toggleWallpapaers()">
+            &#10095;
         </div>
         <div id="wallpapers"></div>
     </div>
@@ -37,8 +45,10 @@
 
     <template id="tmpl-board-line">
        
-        <div class="side-menu-item" onclick="changeBoard()" data-num = "${board_num}">
-            ${board_title}
+        <div class="side-menu-item flex-box" onclick="changeBoard()" data-num = "${board_num}">
+            <div class="fon-icon2" style="background-image: url('${image}');"></div>
+            <div> ${board_title}</div>
+           
 
         </div>
     </template>
@@ -74,7 +84,7 @@
                 
             </div>
             <div class="board-content ">
-                <div class="flex-box">
+                <div class="flex-box flex-wrap">
                     ${board_content}
                 </div>
                 <div>
@@ -104,9 +114,8 @@
                 <div><input class="card-title" type="text" placeholder="Название задачи"></div>
                 <div><textarea class="card-description"  placeholder="Описание задачи"></textarea></div>
                 <div><input class="card-time" type="datetime-local"></div>
-                <div><button id="save-icon" class="ghost flex-box" onclick="cardAdd(${board_number}, ${column_number})" >
-                    <div class="save"></div>
-                    <div>Сохранить</div>
+                <div><button id="save-icon" class="ghost" onclick="cardAdd(${board_number}, ${column_number})" >
+                    <div>&#128190; Сохранить</div>
                 </button></div>
             </div>
             

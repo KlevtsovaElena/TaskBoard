@@ -5,48 +5,65 @@
 body {
     padding: 0;
     margin: 0;
+    font-family: 'Poppins', sans-serif;
+}
+.formCardAdd{
+    padding: 0 5px;
 }
 #changeBackground{
     position: fixed;
-    width: 380px;
+    width: 400px;
     height: 100vh;
-    background-color:whitesmoke;
+    background-color: rgba(255, 255, 255, 0.5);
     z-index: 2;
     top: 0;
-    right: -380px;
-    overflow: scroll;
+    right: -400px;
+    overflow-y: scroll;
     transition: all 0.4s;
+}
+#wallpapers {
+    text-align: center;
 }
 .wallpapers-activ{
     right: 0px !important;
 }
 #side-menu{
     position: fixed;
-    width: 380px;
+    width: 400px;
     height: 100vh;
-    background-color:whitesmoke;
+    background-color: rgba(0, 0, 0, 0.8);
+
     z-index: 2;
     top: 0;
-    left: -380px;
+    left: -400px;
     transition: all 0.4s;
 }
 .side-menu-activ{
     left: 0px !important;
 }
 .side-menu-item{
-    background-color: blueviolet;
     color: white;
     font-weight: bold;
-    margin: 5px;
+    min-height: 50px;
+    margin: 7px 0;
+    padding: 0 10px;
+    cursor: pointer;
+    justify-content: left;
+    column-gap: 10px;
+    align-items: center;
+    transition: all 0.3s;
+}
+.side-menu-item:hover {
+    background-color: rgba(0, 0, 0, 0.56);
 }
 #boards {
     font-family: 'Poppins', sans-serif;
     position: relative;
 }
 #board-icon {
-    height: 20px;
+    height: 26px;
     width: 20px;
-    background-image: url("../img/board2.png");
+    background-image: url("../img/board3.png");
     background-size: cover;
     background-position: center center;
     margin-right: 5px;
@@ -70,6 +87,14 @@ body {
     margin-right: 5px;
     border-radius: 3px;
 }
+.fon-icon2{
+    height: 30px;
+    width: 54px;
+    opacity: 0.7;
+    background-size: cover;
+    background-position: center center;
+    border-radius: 3px;
+}
 #save-icon {
     font-size: 14px;
     border-color: transparent;
@@ -81,7 +106,22 @@ body {
     padding: 3px;
     transition: all 0.3s;
     margin: 1px;
+    align-items: center;
     transition: all 0.3s;
+}
+#add-board {
+    font-size: 20px;
+    color: white;
+    cursor: pointer;
+    width: 200px;
+    height: 30px;
+    border-radius: 3px;
+    margin: 5px 10px;
+    padding: 10px;
+    transition: all 0.3s;
+}
+#add-board:hover {
+    background-color: rgba(0, 0, 0, 0.46);
 }
 #save-icon:hover {
     background-color: rgba(0, 0, 0, 0.2);
@@ -215,10 +255,48 @@ body {
 .to-right {
     margin: 0 0 0 auto;
 }
-#close-wallpapers{
+.close-wallpapers{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color:dimgray;
     cursor: pointer;
-    width: 100%;
-    padding-left: 330px;
+    width: 17px;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.3);
+    margin: 0;
+    flex: none;
+    position: fixed;
+    transition: all 0.3s;
+}
+
+.close-boardList{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color:dimgray;
+    cursor: pointer;
+    width: 17px;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.3);
+    margin: 0;
+    flex: none;
+    position: absolute;
+    right: 0;
+    transition: all;
+}
+.close-wallpapers:hover, .close-boardList:hover {
+    background-color: rgba(0, 0, 0, 0.46);
+    color:white;
+}
+.p-relative{
+    position: relative;
+    height: 100%;
+    background-color:rgba(255, 255, 255, 0.4);
+}
+.bl-container {
+    margin-right: 17px;
+    flex: 1;
 }
 .ghost {
     opacity: 0.7;
@@ -257,6 +335,7 @@ body {
 .btn{
     background-color: rgba(255,255,255,0.25);
     color: white;
+    align-items: center;
     font-size: 16px;
     border-color: transparent;
     border-radius: 3px;
@@ -272,4 +351,18 @@ body {
 .clmn-add {
     font-size: 14px;
     margin-top: 5px;
+    min-width: 150px;
+}
+
+.card-title, .card-description, .card-time{
+    background-color: whitesmoke;
+    width: 100%;
+    border: none;
+    border-radius: 3px;
+    min-height: 25px;
+    box-sizing: border-box;
+    outline-color: lavender;
+}
+.flex-wrap {
+    flex-wrap: wrap;
 }

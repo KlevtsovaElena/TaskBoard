@@ -1,4 +1,5 @@
-    //массив адресов обоев
+
+   //массив адресов обоев
     let wallpaper = {   "image": [
                             "https://klevtsovaelena.github.io/wallpaper/img/BlackWhite1.jpg",
                             "https://klevtsovaelena.github.io/wallpaper/img/BlackWhite2.jpg",
@@ -123,10 +124,16 @@
 
     //номер текущий доски
     let currentBoardId = localStorage.getItem('current_board');
-    if (currentBoardId == null) {
+
+    console.log(currentBoardId);
+
+    if (currentBoardId == null || currentBoardId == "null")  {
         currentBoardId = 0;
     }
+    console.log("currentBoardId " + currentBoardId);
     console.log(data);
+
+
 
     renderBoards();
     renderWallpapers();
@@ -260,7 +267,7 @@
     function boardDelete() {
 
         //спросить подтверждение
-        let ok = confirm("Вы действительно хотите удалить доску?");  //true / false
+        let ok = confirm("Вы действительно хотите удалить доску " + data['boards'][currentBoardId]['title'] + "?");  //true / false
 
         if (ok) {
 
@@ -416,7 +423,8 @@
          for (let i = 0; i < data['boards'].length; i++){
 
             container.innerHTML += tmpl_board   .replace('${board_title}', data['boards'][i]['title'])
-                                                .replace('${board_num}', i);
+                                                .replace('${board_num}', i)
+                                                .replace('${image}', data['boards'][i]['background']);
                                                                                   
              }
     }
@@ -479,7 +487,7 @@
     function changeBoard(){
 
         //определяем номер доски на котоую кликнули
-        let num = event.target.getAttribute('data-num');
+        let num = event.target.closest('.side-menu-item').getAttribute('data-num');
 
         //меняем текущий номер доски
         currentBoardId = num;
