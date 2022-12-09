@@ -261,6 +261,7 @@
         data['boards'][currentBoardId]['title'] = name;
 
         save();
+        renderBoardsList();
     }
 
     //функция для удаления доски

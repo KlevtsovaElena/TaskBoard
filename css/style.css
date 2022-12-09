@@ -366,3 +366,10 @@ body {
 .flex-wrap {
     flex-wrap: wrap;
 }
+.side-menu-item div:last-child {
+    margin-left: auto;
+    display: none;
+}
+.side-menu-item:hover div:last-child{
+    display: block;
+} 
