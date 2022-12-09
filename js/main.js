@@ -125,7 +125,6 @@
     //номер текущий доски
     let currentBoardId = localStorage.getItem('current_board');
 
-    console.log(currentBoardId);
 
     if (currentBoardId == null || currentBoardId == "null")  {
         currentBoardId = 0;
@@ -264,6 +263,7 @@
         renderBoardsList();
     }
 
+//----------------------------------------------------------------------------------------------------------
     //функция для удаления доски
     function boardDelete() {
 
@@ -297,6 +297,47 @@
         } 
 
     }
+
+//---------------------------------------------------------------------------------------------
+    //функция для удаления доски из boarderList
+    function boardListDelete(num) {
+
+        //если номер удаляемой доски СОВПАДАЕТ с номером текущей доски, то вызываем функцию boardDelete()
+        if (num == currentBoardId) { 
+            boardDelete();
+            renderBoardsList();
+        }else {
+            //спросить подтверждение
+            let ok = confirm("Вы действительно хотите удалить доску " + data['boards'][num]['title'] + "?");  //true / false
+                    
+            if (ok) {
+                //удаляем доску
+                data['boards'].splice(num, 1);
+               
+                //если текущий номер МEНЬШЕ номера удалённой доски, то достаточно сохранить в localStorage и перерисовать boarderList
+                if (currentBoardId < num) {
+                    save();
+                    renderBoardsList();
+                }
+
+                //если текущий номер БОЛЬШЕ номера удалённой доски, то 
+                if (currentBoardId > num) {
+                    //1. уменьшаем currentBoardId на единицу
+                    currentBoardId--;
+
+                    //2. сохраняем в localStorage
+                    save();
+
+                    //3. перерисовываем borderList и border
+                    renderBoardsList();
+                    renderBoards();
+                }
+            }
+           
+        }
+
+    }
+//--------------------------------------------------------------------------------------------------    
 
     //функция создания колонки
     function columnAdd(){
@@ -501,8 +542,27 @@
         toggleBoardsList();
 
         save();
+    } 
+    
+    //------------------------------------------------------------------------------------------------------
+    //функция проверки какую функцию вызвать
+    function whatFunction() {
 
-    }    
+        let num = event.target.closest('.side-menu-item').getAttribute('data-num');
+        //если нажат крестик, то вызываем функцию удаления доски
+        if(event.target == event.target.closest('.side-menu-item').querySelector('div:last-of-type')){
+            boardListDelete(num);
+        }else {
+            //если нажат НЕ крестик, то вызываем функцию переключения досок
+            changeBoard();
+        }
+    }
+
+
+
+
+
+    //---------------------------------------------------------------------------------------------------
 
     //функция рассыльщика
     function sender(){
