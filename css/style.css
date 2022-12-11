@@ -7,6 +7,7 @@ body {
     margin: 0;
     font-family: 'Poppins', sans-serif;
 }
+
 .formCardAdd{
     padding: 0 5px;
 }
@@ -111,7 +112,7 @@ body {
     transition: all 0.3s;
 }
 #add-board {
-    font-size: 20px;
+    font-size: 16px;
     color: white;
     cursor: pointer;
     width: 200px;
@@ -133,7 +134,19 @@ body {
     overflow: auto;
     background-color: darkslategray;
 }
+.board::-webkit-scrollbar {
+    background-color: none;
+    border-radius: 20px;
+    width: 8px;
+    height: 8px;
 
+}
+.board::-webkit-scrollbar-thumb{
+    background-color:rgba(0, 0, 20, 0.8);
+    border-radius: 10px;
+
+    
+}
 .board-header {
     padding: 10px;
     justify-content: left;
@@ -376,3 +389,6 @@ body {
 .side-menu-item:hover div:last-child{
     display: block;
 } 
+.align-item-fs {
+    align-items: flex-start;
+}
