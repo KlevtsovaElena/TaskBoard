@@ -59,6 +59,7 @@ body {
 #boards {
     font-family: 'Poppins', sans-serif;
     position: relative;
+
 }
 #board-icon {
     height: 26px;
@@ -129,6 +130,8 @@ body {
 .board {
     color: white;
     height: 100vh;
+    overflow: auto;
+    background-color: darkslategray;
 }
 
 .board-header {
